@@ -9,7 +9,7 @@ namespace TextManipulator.Controllers
 {
     public class TextManipulatorsController : Controller
     {
-        IAlgorithmsManager _algorithmsManager;
+        private readonly IAlgorithmsManager _algorithmsManager;
         public TextManipulatorsController(IAlgorithmsManager algorithmsManager)
         {
             _algorithmsManager = algorithmsManager;

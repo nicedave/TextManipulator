@@ -5,7 +5,7 @@ namespace TextManipulator.Controllers.Api
 {
     public class TextManipulatorsController : ApiController
     {
-        IAlgorithmsManager _algorithmsManager;
+        private readonly IAlgorithmsManager _algorithmsManager;
         public TextManipulatorsController(IAlgorithmsManager algorithmsManager)
         {
             _algorithmsManager = algorithmsManager;

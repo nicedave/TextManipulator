@@ -6,7 +6,7 @@ namespace TextManipulator.Controllers
 {
     public class AlgorithmsManager : IAlgorithmsManager
     {
-        IEnumerable<ITextManipulatorAlgorithm> _textManipulators;
+        private readonly IEnumerable<ITextManipulatorAlgorithm> _textManipulators;
         public AlgorithmsManager(IEnumerable<ITextManipulatorAlgorithm> textManipulators)
         {
             _textManipulators = textManipulators;
