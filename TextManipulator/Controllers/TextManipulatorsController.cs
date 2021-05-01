@@ -9,41 +9,47 @@ namespace TextManipulator.Controllers
 {
     public class TextManipulatorsController : Controller
     {
-        IEnumerable<ITextManipulatorAlgorithm> _textManipulators;
-        public TextManipulatorsController(IEnumerable<ITextManipulatorAlgorithm> textManipulators)
+        IAlgorithmsManager _algorithmsManager;
+        public TextManipulatorsController(IAlgorithmsManager algorithmsManager)
         {
-            _textManipulators = textManipulators;
+            _algorithmsManager = algorithmsManager;
         }
 
         public ActionResult Index()
         {
-            var viewModel = new TextManipulatorFormViewModel();
+            var viewModel = InitFormViewModel();
+            if (viewModel.AvailableAlgorithms.Count() == 1)
+            {
+                viewModel.SelectedAlgorithm = viewModel.AvailableAlgorithms.First();
+            }
+            return View("Index", viewModel);
+        }
+
+        public ActionResult Manipulate(TextManipulatorFormViewModel viewModel)
+        {
             viewModel.AvailableAlgorithms = GetAvailableAlgorithms();
 
-            return View("Index", viewModel);
-        }
-
-        public ActionResult Manipulate(string text, string selectedAlgorithm)
-        {
-            //TODO: gestire selezione algoritmo e creazione viewmodel base
-            ITextManipulatorAlgorithm algorithm = _textManipulators.SingleOrDefault(m => m.AlgorithmName == selectedAlgorithm);
-
-            var manipulatedText = algorithm.ManipulateText(text);
-
-            TextManipulatorFormViewModel viewModel = new TextManipulatorFormViewModel()
+            if (!ModelState.IsValid)
             {
-                SelectedAlgorithm = algorithm.AlgorithmName,
-                Text = text,
-                ManipulatedText = manipulatedText,
-                AvailableAlgorithms = GetAvailableAlgorithms()
-            };
+                return View("Index", viewModel);
+            }
+
+            var result = _algorithmsManager.ExecuteAlgorithm(viewModel.SelectedAlgorithm, viewModel.Text);
+            viewModel.AlgorithmOutput = result;
 
             return View("Index", viewModel);
         }
 
-        private List<string> GetAvailableAlgorithms()
+        private TextManipulatorFormViewModel InitFormViewModel()
         {
-            return _textManipulators.Select(m => m.AlgorithmName).ToList();
+            var viewModel = new TextManipulatorFormViewModel();
+            viewModel.AvailableAlgorithms = GetAvailableAlgorithms();
+            
+            return viewModel;
+        }
+        private IEnumerable<string> GetAvailableAlgorithms()
+        {
+            return _algorithmsManager.GetAvailableAlgorithms();
         }
     }
 }

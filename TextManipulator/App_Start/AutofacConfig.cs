@@ -24,6 +24,7 @@ namespace TextManipulator
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
             builder.RegisterType<LargestWordFinder>().As<ITextManipulatorAlgorithm>().InstancePerRequest();
+            builder.RegisterType<AlgorithmsManager>().As<IAlgorithmsManager>().InstancePerRequest();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

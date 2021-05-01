@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using TextManipulator.DTOs;
 
 namespace TextManipulator.ViewModels
 {
     public class TextManipulatorFormViewModel
     {
-        [Required]
+        [Required (ErrorMessage = "Please enter some text.")]
         [Display (Name = "Type your text:")]
         public string Text { get; set; }
 
-        public List<string> AvailableAlgorithms { get; set; }
+        public IEnumerable<string> AvailableAlgorithms { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please select an Algorithm.")]
         [Display(Name = "Select an Algorithm:")]
         public string SelectedAlgorithm { get; set; }
 
-        [Display(Name = "Result:")]
-        public string ManipulatedText { get; set; }
+        public AlgorithmOutputDTO AlgorithmOutput { get; set; }
     }
 }

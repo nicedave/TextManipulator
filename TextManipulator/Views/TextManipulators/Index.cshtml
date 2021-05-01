@@ -1,26 +1,18 @@
 ﻿@model TextManipulator.ViewModels.TextManipulatorFormViewModel
 
-@*@{
-        ViewBag.Title = "Text Manipulator!";
-    }
-
-    <h2>@ViewBag.Title</h2>*@
-
 <br />
 @using (Html.BeginForm("Manipulate", "TextManipulators"))
 {
-    @Html.ValidationSummary(true, "Please fix the following errors.");
-
     <div class="form-group">
         @Html.LabelFor(m => m.Text)
         @Html.TextAreaFor(m => m.Text, new { @class = "form-control" })
-        @*@Html.ValidationMessageFor(m => m.Text)*@
+        @Html.ValidationMessageFor(m => m.Text)
     </div>
 
     <div class="form-group">
         @Html.LabelFor(m => m.SelectedAlgorithm)
         @Html.DropDownListFor(m => m.SelectedAlgorithm, new SelectList(Model.AvailableAlgorithms), "Select", new { @class = "form-control" })
-        @*@Html.ValidationMessageFor(m => m.SelectedAlgorithm)*@
+        @Html.ValidationMessageFor(m => m.SelectedAlgorithm)
     </div>
 
     <button type="submit" class="btn btn-primary">Manipulate</button>
@@ -29,10 +21,8 @@
     <br />
 
     <div class="form-group">
-        @Html.LabelFor(m => m.ManipulatedText)
-        @Html.TextBoxFor(m => m.ManipulatedText, new { @class = "form-control", @readonly = "readonly" })
-        @*@Html.ValidationMessageFor(m => m.Text)*@
+        @Html.LabelFor(m => m.AlgorithmOutput.Result)
+        @Html.TextBoxFor(m => m.AlgorithmOutput.Result, new { @class = "form-control", @readonly = "readonly" })
     </div>
-
 }
 

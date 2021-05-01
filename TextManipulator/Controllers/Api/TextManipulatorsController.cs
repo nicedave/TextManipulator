@@ -1,33 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 
 namespace TextManipulator.Controllers.Api
 {
     public class TextManipulatorsController : ApiController
     {
-        IEnumerable<ITextManipulatorAlgorithm> _textManipulators;
-        public TextManipulatorsController(IEnumerable<ITextManipulatorAlgorithm> textManipulators)
+        IAlgorithmsManager _algorithmsManager;
+        public TextManipulatorsController(IAlgorithmsManager algorithmsManager)
         {
-            _textManipulators = textManipulators;
+            _algorithmsManager = algorithmsManager;
         }
 
-        public IHttpActionResult Get()
+        public IHttpActionResult GetAvailableAlgorithms()
         {
-            var s = _textManipulators.Select(m => m.AlgorithmName).ToList();
+            IEnumerable<string> availableAlgorithms = _algorithmsManager.GetAvailableAlgorithms();
 
-            return Json(s);
+            return Json(availableAlgorithms);
         }
 
-        public IHttpActionResult Get(string algorithmName, string text)
+        public IHttpActionResult ManipulateText(string algorithmName, string text)
         {
-            //TODO: creare metodo post
-            var s = new LargestWordFinder().ManipulateText(text);
+            var result = _algorithmsManager.ExecuteAlgorithm(algorithmName, text);
 
-            return Json(s);
+            return Json(result);
         }
     }
 }

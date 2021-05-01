@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
+using TextManipulator.DTOs;
 
 namespace TextManipulator.Controllers
 {
@@ -12,7 +10,7 @@ namespace TextManipulator.Controllers
             get { return "Largest Word"; }
         }
 
-        public string ManipulateText(string text)
+        public AlgorithmOutputDTO ManipulateText(string text)
         {
             string[] wordsInText = text.Split(' ');
             
@@ -20,7 +18,7 @@ namespace TextManipulator.Controllers
             
             string firstLargestWord = wordsInText.FirstOrDefault(w => w.Length == longestWordLenght);
 
-            return firstLargestWord;
+            return new AlgorithmOutputDTO() { AlgorithmName = AlgorithmName, Result = firstLargestWord };
         }
     }
 }
