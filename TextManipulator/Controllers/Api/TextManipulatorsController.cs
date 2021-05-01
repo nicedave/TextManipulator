@@ -14,7 +14,15 @@ namespace TextManipulator.Controllers.Api
 
         //}
 
-        public IHttpActionResult Get(string text)
+        public IHttpActionResult Get()
+        {
+            //TODO: restituire gli algoritmi disponibili
+            var s = new LargestWordFinder().AlgorithmName;
+
+            return Json(s);
+        }
+
+        public IHttpActionResult Get(string algorithmName, string text)
         {
             //TODO: sostituire
             var s = new LargestWordFinder().ManipulateText(text);

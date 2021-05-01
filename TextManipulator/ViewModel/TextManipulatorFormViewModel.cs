@@ -12,12 +12,13 @@ namespace TextManipulator.ViewModel
         [Display (Name = "Type your text:")]
         public string Text { get; set; }
 
+        public List<string> AvailableAlgorithms { get; set; }
+
+        [Required]
+        [Display(Name = "Selected Algorithm:")]
+        public string SelectedAlgorithm { get; set; }
+
+        [Display(Name = "Result:")]
         public string ManipulatedText { get; set; }
-
-        public string AlgorithmName { get; set; }
-
-        //public IEnumerable<string> Algorithms { get; set; }
-        //[Required]
-        //public string SelectedAlgorithm { get; set; }
     }
 }

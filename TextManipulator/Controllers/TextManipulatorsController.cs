@@ -18,7 +18,7 @@ namespace TextManipulator.Controllers
         public ActionResult Index()
         {
             var viewModel = new TextManipulatorFormViewModel();
-            viewModel.AlgorithmName = _textManipulator.AlgorithmName;
+            viewModel.AvailableAlgorithms = GetAvailableAlgorithms();
 
             return View("Index", viewModel);
         }
@@ -33,12 +33,18 @@ namespace TextManipulator.Controllers
             var manipulatedText = _textManipulator.ManipulateText(text);
             TextManipulatorFormViewModel viewModel = new TextManipulatorFormViewModel()
             {
-                AlgorithmName = _textManipulator.AlgorithmName,
+                SelectedAlgorithm = _textManipulator.AlgorithmName,
                 Text = text,
-                ManipulatedText = manipulatedText
+                ManipulatedText = manipulatedText,
+                AvailableAlgorithms = GetAvailableAlgorithms()
             };
 
             return View("Index", viewModel);
+        }
+
+        private List<string> GetAvailableAlgorithms() 
+        {
+            return new List<string>() { _textManipulator.AlgorithmName };
         }
     }
 }
