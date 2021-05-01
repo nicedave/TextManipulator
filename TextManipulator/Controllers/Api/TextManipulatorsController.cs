@@ -9,22 +9,22 @@ namespace TextManipulator.Controllers.Api
 {
     public class TextManipulatorsController : ApiController
     {
-        //public TextManipulatorsController(List<ITextManipulator> _textManipulations)
-        //{
-
-        //}
+        IEnumerable<ITextManipulatorAlgorithm> _textManipulators;
+        public TextManipulatorsController(IEnumerable<ITextManipulatorAlgorithm> textManipulators)
+        {
+            _textManipulators = textManipulators;
+        }
 
         public IHttpActionResult Get()
         {
-            //TODO: restituire gli algoritmi disponibili
-            var s = new LargestWordFinder().AlgorithmName;
+            var s = _textManipulators.Select(m => m.AlgorithmName).ToList();
 
             return Json(s);
         }
 
         public IHttpActionResult Get(string algorithmName, string text)
         {
-            //TODO: sostituire
+            //TODO: creare metodo post
             var s = new LargestWordFinder().ManipulateText(text);
 
             return Json(s);

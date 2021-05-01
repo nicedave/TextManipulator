@@ -9,12 +9,12 @@ namespace TextManipulator.Controllers
 {
     public class TextManipulatorsController : Controller
     {
-        ITextManipulatorAlgorithm _textManipulator;
-        public TextManipulatorsController()
+        IEnumerable<ITextManipulatorAlgorithm> _textManipulators;
+        public TextManipulatorsController(IEnumerable<ITextManipulatorAlgorithm> textManipulators)
         {
-            _textManipulator = new LargestWordFinder();
+            _textManipulators = textManipulators;
         }
-        
+
         public ActionResult Index()
         {
             var viewModel = new TextManipulatorFormViewModel();
@@ -23,17 +23,16 @@ namespace TextManipulator.Controllers
             return View("Index", viewModel);
         }
 
-        public ActionResult Manipulate(string text)
+        public ActionResult Manipulate(string text, string selectedAlgorithm)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Index");
-            }
+            //TODO: gestire selezione algoritmo e creazione viewmodel base
+            ITextManipulatorAlgorithm algorithm = _textManipulators.SingleOrDefault(m => m.AlgorithmName == selectedAlgorithm);
 
-            var manipulatedText = _textManipulator.ManipulateText(text);
+            var manipulatedText = algorithm.ManipulateText(text);
+
             TextManipulatorFormViewModel viewModel = new TextManipulatorFormViewModel()
             {
-                SelectedAlgorithm = _textManipulator.AlgorithmName,
+                SelectedAlgorithm = algorithm.AlgorithmName,
                 Text = text,
                 ManipulatedText = manipulatedText,
                 AvailableAlgorithms = GetAvailableAlgorithms()
@@ -42,9 +41,9 @@ namespace TextManipulator.Controllers
             return View("Index", viewModel);
         }
 
-        private List<string> GetAvailableAlgorithms() 
+        private List<string> GetAvailableAlgorithms()
         {
-            return new List<string>() { _textManipulator.AlgorithmName };
+            return _textManipulators.Select(m => m.AlgorithmName).ToList();
         }
     }
 }
