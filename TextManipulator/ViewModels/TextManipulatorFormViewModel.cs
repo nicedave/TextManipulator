@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace TextManipulator.ViewModel
+namespace TextManipulator.ViewModels
 {
     public class TextManipulatorFormViewModel
     {
@@ -15,7 +15,7 @@ namespace TextManipulator.ViewModel
         public List<string> AvailableAlgorithms { get; set; }
 
         [Required]
-        [Display(Name = "Selected Algorithm:")]
+        [Display(Name = "Select an Algorithm:")]
         public string SelectedAlgorithm { get; set; }
 
         [Display(Name = "Result:")]
