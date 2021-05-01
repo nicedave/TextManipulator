@@ -33,6 +33,8 @@ namespace TextManipulator.Controllers
             {
                 return View("Index", viewModel);
             }
+            
+            ModelState.Clear();
 
             var result = _algorithmsManager.ExecuteAlgorithm(viewModel.SelectedAlgorithm, viewModel.Text);
             viewModel.AlgorithmOutput = result;
