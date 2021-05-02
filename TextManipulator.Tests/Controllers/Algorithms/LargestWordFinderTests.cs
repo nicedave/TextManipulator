@@ -15,8 +15,8 @@ namespace TextManipulator.Tests
 
         [Test]
         [TestCase("a b c d", "a")]
-        [TestCase("a b c dddd", "dddd")]
-        [TestCase("a b c dddd eeee f g", "dddd")]
+        [TestCase("a b c longest", "longest")]
+        [TestCase("a b c longest samelen f g", "longest")]
         public void ManipulateString_WhenCalled_ReturnsFirstLargestWord(string text, string expectedResult)
         {
             var output = _algorithm.ManipulateText(text);

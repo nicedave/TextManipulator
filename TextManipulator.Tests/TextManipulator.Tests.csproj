@@ -67,8 +67,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlgorithmsManagerTests.cs" />
-    <Compile Include="LargestWordFinderTests.cs" />
+    <Compile Include="Controllers\Algorithms\AlgorithmsManagerTests.cs" />
+    <Compile Include="Controllers\Algorithms\LargestWordFinderTests.cs" />
+    <Compile Include="Controllers\Api\TextManipulatorsControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

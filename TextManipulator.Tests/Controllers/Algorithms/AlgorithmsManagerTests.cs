@@ -1,6 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using TextManipulator.Controllers;
 
 namespace TextManipulator.Tests
@@ -17,11 +18,11 @@ namespace TextManipulator.Tests
 
             var firstAlgorithm = new Mock<ITextManipulatorAlgorithm>();
             firstAlgorithm.Setup(f => f.AlgorithmName).Returns("First");
-            firstAlgorithm.Setup(f => f.ManipulateText("FirstInput")).Returns(new DTOs.AlgorithmOutputDTO() { Result = "FirstResult" });
+            firstAlgorithm.Setup(f => f.ManipulateText("Input")).Returns(new DTOs.AlgorithmOutputDTO() { Result = "FirstResult" });
 
             var secondAlgorithm = new Mock<ITextManipulatorAlgorithm>();
             secondAlgorithm.Setup(f => f.AlgorithmName).Returns("Second");
-            secondAlgorithm.Setup(f => f.ManipulateText("SecondInput")).Returns(new DTOs.AlgorithmOutputDTO() { Result = "SecondResult" });
+            secondAlgorithm.Setup(f => f.ManipulateText("Input")).Returns(new DTOs.AlgorithmOutputDTO() { Result = "SecondResult" });
 
             algorithms.Add(firstAlgorithm.Object);
             algorithms.Add(secondAlgorithm.Object);
@@ -37,12 +38,21 @@ namespace TextManipulator.Tests
         }
 
         [Test]
-        [TestCase("First", "FirstInput", "FirstResult")]
-        [TestCase("Second", "SecondInput", "SecondResult")]
+        [TestCase("First", "Input", "FirstResult")]
+        [TestCase("Second", "Input", "SecondResult")]
         public void ExecuteAlgorithm_WhenCalled_ExecutesCorrectAlgorithm(string algorithmName, string input, string expectedResult)
         {
             var output = _manager.ExecuteAlgorithm(algorithmName, input);
             Assert.That(output.Result, Is.EqualTo(expectedResult));
+        }
+
+
+        [Test]
+        [TestCase("Input")]
+        public void ExecuteAllAlgorithm_WhenCalled_ExecutesAllAlgorithms(string input)
+        {
+            var output = _manager.ExecuteAllAlgorithms(input);
+            Assert.That(output.Count(), Is.EqualTo(2));
         }
     }
 }

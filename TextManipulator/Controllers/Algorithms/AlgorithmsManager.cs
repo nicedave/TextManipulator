@@ -22,5 +22,10 @@ namespace TextManipulator.Controllers
             ITextManipulatorAlgorithm algorithm = _textManipulators.SingleOrDefault(m => m.AlgorithmName == algorithmName);
             return algorithm.ManipulateText(text);
         }
+
+        public IEnumerable<AlgorithmOutputDTO> ExecuteAllAlgorithms(string text)
+        {
+            return (from t in _textManipulators select t.ManipulateText(text));
+        }
     }
 }

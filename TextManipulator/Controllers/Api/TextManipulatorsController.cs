@@ -11,6 +11,7 @@ namespace TextManipulator.Controllers.Api
             _algorithmsManager = algorithmsManager;
         }
 
+        [HttpGet]
         public IHttpActionResult GetAvailableAlgorithms()
         {
             IEnumerable<string> availableAlgorithms = _algorithmsManager.GetAvailableAlgorithms();
@@ -18,7 +19,16 @@ namespace TextManipulator.Controllers.Api
             return Json(availableAlgorithms);
         }
 
-        public IHttpActionResult ManipulateText(string algorithmName, string text)
+        [HttpGet]
+        public IHttpActionResult ExecuteAllAlgorithms(string text)
+        {
+            var result = _algorithmsManager.ExecuteAllAlgorithms(text);
+
+            return Json(result);
+        }
+
+        [HttpGet]
+        public IHttpActionResult ExecuteAlgorithm(string algorithmName, string text)
         {
             var result = _algorithmsManager.ExecuteAlgorithm(algorithmName, text);
 
