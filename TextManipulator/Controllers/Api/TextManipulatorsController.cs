@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using TextManipulator.Controllers.Algorithms;
 
 namespace TextManipulator.Controllers.Api
 {

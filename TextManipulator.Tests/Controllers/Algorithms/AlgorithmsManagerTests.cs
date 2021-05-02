@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
-using TextManipulator.Controllers;
+using TextManipulator.Controllers.Algorithms;
 
 namespace TextManipulator.Tests
 {
@@ -45,7 +45,6 @@ namespace TextManipulator.Tests
             var output = _manager.ExecuteAlgorithm(algorithmName, input);
             Assert.That(output.Result, Is.EqualTo(expectedResult));
         }
-
 
         [Test]
         [TestCase("Input")]

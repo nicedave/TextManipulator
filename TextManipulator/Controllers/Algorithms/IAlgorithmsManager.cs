@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TextManipulator.DTOs;
 
-namespace TextManipulator.Controllers
+namespace TextManipulator.Controllers.Algorithms
 {
     public interface IAlgorithmsManager
     {

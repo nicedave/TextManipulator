@@ -1,6 +1,6 @@
 ﻿using TextManipulator.DTOs;
 
-namespace TextManipulator.Controllers
+namespace TextManipulator.Controllers.Algorithms
 {
     public interface ITextManipulatorAlgorithm
     {

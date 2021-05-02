@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using TextManipulator.DTOs;
 
-namespace TextManipulator.Controllers
+namespace TextManipulator.Controllers.Algorithms
 {
     public class LargestWordFinder : ITextManipulatorAlgorithm
     {

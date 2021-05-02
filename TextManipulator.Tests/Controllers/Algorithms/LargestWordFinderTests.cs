@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using TextManipulator.Controllers;
+using TextManipulator.Controllers.Algorithms;
 
 namespace TextManipulator.Tests
 {
@@ -17,11 +17,20 @@ namespace TextManipulator.Tests
         [TestCase("a b c d", "a")]
         [TestCase("a b c longest", "longest")]
         [TestCase("a b c longest samelen f g", "longest")]
-        public void ManipulateString_WhenCalled_ReturnsFirstLargestWord(string text, string expectedResult)
+        public void ManipulateString_TextIsValid_ReturnsFirstLargestWord(string text, string expectedResult)
         {
             var output = _algorithm.ManipulateText(text);
 
             Assert.That(output.Result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        [Ignore("Not important for the test")]
+        public void ManipulateString_TextIsNull_ReturnsEmptyResult()
+        {
+            var output = _algorithm.ManipulateText(null);
+
+            Assert.That(output.Result, Is.EqualTo(""));
         }
 
         [Test]
