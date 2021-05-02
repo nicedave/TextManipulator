@@ -25,7 +25,7 @@ namespace TextManipulator.Tests
         }
 
         [Test]
-        [Ignore("Not important for the test")]
+        [Ignore("Not mandatory for the test")]
         public void ManipulateString_TextIsNull_ReturnsEmptyResult()
         {
             var output = _algorithm.ManipulateText(null);
