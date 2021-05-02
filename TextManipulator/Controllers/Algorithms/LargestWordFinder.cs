@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using TextManipulator.DTOs;
 
 namespace TextManipulator.Controllers.Algorithms
@@ -12,11 +13,9 @@ namespace TextManipulator.Controllers.Algorithms
 
         public AlgorithmOutputDTO ManipulateText(string text)
         {
-            string[] wordsInText = text.Split(' ');
-            
-            int longestWordLenght = wordsInText.Max(w => w.Length);
-            
-            string firstLargestWord = wordsInText.FirstOrDefault(w => w.Length == longestWordLenght);
+            string[] wordsInText = text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            string firstLargestWord = wordsInText.OrderByDescending(w => w.Length).FirstOrDefault();
 
             return new AlgorithmOutputDTO() { AlgorithmName = AlgorithmName, Result = firstLargestWord };
         }
